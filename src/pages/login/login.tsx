@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { SessionData, NavigationFrom } from "types";
 import { Toast, ToastPropsData } from "components";
@@ -123,6 +123,11 @@ export const Login = (): JSX.Element => {
               >
                 Login
               </Button>
+            </div>
+            <div className={styles.centeredContent}>
+              <Typography variant="body1">
+                Not a user? Sign up <Link to="/signup">here</Link>
+              </Typography>
             </div>
           </Stack>
         </form>
