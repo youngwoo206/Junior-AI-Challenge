@@ -17,11 +17,6 @@ export const login = (
     const delay =
         Math.floor(Math.random() * (maxDelayMS - minDelayMS + 1)) + minDelayMS;
 
-    // if (username !== "user" || password !== "password") {
-    //     setTimeout(() => {
-    //         onError("Invalid username or password");
-    //     }, delay);
-    // }
     if (localStorage.getItem(username) == null) {
         setTimeout(() => {
             onError("Username not found!")

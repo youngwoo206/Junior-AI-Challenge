@@ -40,15 +40,6 @@ export const userUpdate = (
         }, delay);
     } else {
 
-        // localStorage.setItem("firstName", newFirstName);
-        // localStorage.setItem("lastName", newLastName);
-        // const sessionData: SessionData = {
-        //     sessionId: 1,
-        //     username: "user",
-        //     userFirstName: newFirstName,
-        //     userLastName: newLastName,
-        // };
-
         const oldUser = localStorage.getItem(username)
 
         if (!oldUser) {
