@@ -13,12 +13,16 @@ import { login } from "services";
 import { SessionContext } from "contexts";
 
 import styles from "./login.module.css";
+import { IconButton, InputAdornment } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 export const Login = (): JSX.Element => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [usernameError, setUsernameError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [working, setWorking] = useState<boolean>(false);
   const [toastProps, setToastProps] = useState<ToastPropsData | null>(null);
   const session = useContext(SessionContext);
@@ -99,13 +103,28 @@ export const Login = (): JSX.Element => {
               }}
             />
             <TextField
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               label="Password *"
               error={passwordError ? true : false}
               helperText={passwordError ?? " "}
               InputProps={{
                 readOnly: working,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => {
+                        setShowPassword(!showPassword);
+                      }}
+                    >
+                      {showPassword ? (
+                        <VisibilityOffIcon />
+                      ) : (
+                        <VisibilityIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
               onChange={(event) => {
                 setPassword(event.target.value);
