@@ -29,7 +29,7 @@ export const Settings = (): JSX.Element => {
   const [working, setWorking] = useState<boolean>(false);
   const [toastProps, setToastProps] = useState<ToastPropsData | null>(null);
 
-  const sessionId = session.sessionData?.sessionId;
+  const username = session.sessionData?.username;
 
   const onNameSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -52,7 +52,7 @@ export const Settings = (): JSX.Element => {
       return;
     }
 
-    if (!sessionId) {
+    if (!username) {
       return;
     }
 
@@ -80,7 +80,7 @@ export const Settings = (): JSX.Element => {
       });
     };
 
-    userUpdate(sessionId, firstName, lastName, onSuccess, onError);
+    userUpdate(username, firstName, lastName, onSuccess, onError);
   };
 
   return (

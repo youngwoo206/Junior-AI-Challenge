@@ -126,7 +126,10 @@ export const Login = (): JSX.Element => {
             </div>
             <div className={styles.centeredContent}>
               <Typography variant="body1">
-                Not a user? Sign up <Link to="/signup">here</Link>
+                Not a user? Sign up{" "}
+                <Link to="/signup" className={styles.link}>
+                  here
+                </Link>
               </Typography>
             </div>
           </Stack>

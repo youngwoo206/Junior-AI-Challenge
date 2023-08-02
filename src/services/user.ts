@@ -1,7 +1,7 @@
 import { SessionData } from "types";
 
 export const userUpdate = (
-    sessionId: number,
+    username: string,
     newFirstName: string,
     newLastName: string,
     onSuccess: (sessionData: SessionData) => void,
@@ -18,8 +18,8 @@ export const userUpdate = (
 
     let errorMessage = "";
 
-    if (sessionId !== 1) {
-        errorMessage = "Invalid session Id";
+    if (!username) {
+        errorMessage = "cannot find user"
     }
 
     if (!newFirstName) {
@@ -39,14 +39,33 @@ export const userUpdate = (
             onError(errorMessage);
         }, delay);
     } else {
-        localStorage.setItem("firstName", newFirstName);
-        localStorage.setItem("lastName", newLastName);
-        const sessionData: SessionData = {
-            sessionId: 1,
-            username: "user",
+
+        // localStorage.setItem("firstName", newFirstName);
+        // localStorage.setItem("lastName", newLastName);
+        // const sessionData: SessionData = {
+        //     sessionId: 1,
+        //     username: "user",
+        //     userFirstName: newFirstName,
+        //     userLastName: newLastName,
+        // };
+
+        const oldUser = localStorage.getItem(username)
+
+        if (!oldUser) {
+            return
+        }
+
+        const oldUserData = JSON.parse(oldUser)
+        const newUserData = {
+            ...oldUserData,
             userFirstName: newFirstName,
             userLastName: newLastName,
-        };
+        }
+
+        localStorage.setItem(username, JSON.stringify(newUserData))
+
+        const sessionData = newUserData
+
         setTimeout(() => {
             onSuccess(sessionData);
         }, delay);

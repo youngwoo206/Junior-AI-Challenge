@@ -25,3 +25,12 @@
     display: flex;
     justify-content: center;
 }
+
+.link {
+    color: #802ba4;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: black;
+}

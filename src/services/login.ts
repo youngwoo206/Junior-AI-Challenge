@@ -17,11 +17,18 @@ export const login = (
     const delay =
         Math.floor(Math.random() * (maxDelayMS - minDelayMS + 1)) + minDelayMS;
 
-    if (username !== "user" || password !== "password") {
+    // if (username !== "user" || password !== "password") {
+    //     setTimeout(() => {
+    //         onError("Invalid username or password");
+    //     }, delay);
+    // }
+    if (localStorage.getItem(username) == null) {
         setTimeout(() => {
-            onError("Invalid username or password");
-        }, delay);
-    } else {
+            onError("Username not found!")
+        }, delay)
+    }
+    
+    else {
         if (Math.floor(Math.random() * 4) === 0) {
             // Just for fun, we'll have the call fail for an unknown reason
             // some of the time.
@@ -29,17 +36,21 @@ export const login = (
                 onError("Error making API call");
             }, delay);
         } else {
-            const firstName = localStorage.getItem("firstName") || "First";
-            const lastName = localStorage.getItem("lastName") || "Last";
-            const sessionData: SessionData = {
-                sessionId: 1,
-                username: "user",
-                userFirstName: firstName,
-                userLastName: lastName,
-            };
-            setTimeout(() => {
-                onSuccess(sessionData);
-            }, delay);
+            const user = localStorage.getItem(username)
+            if (!user) {
+                return
+            }
+            const sessionData = JSON.parse(user)
+            if (password !== sessionData.password) {
+                setTimeout(() => {
+                    onError("Password not correct!")
+                }, delay)
+            }
+            else {
+                setTimeout(() => {
+                    onSuccess(sessionData);
+                }, delay);
+            }
         }
     }
 };
